@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { CartContext } from '../context/CartContext';
+import { UserContext } from '../context/UserContext';
 
 const Navbar = () => {
   const { total } = useContext(CartContext);
-  const token = false;
+  const { token, logout } = useContext(UserContext);
 
   return (
     <nav className="navbar navbar-expand-lg" style={{ backgroundColor: 'var(--cream-dark)' }}>
@@ -31,7 +32,7 @@ const Navbar = () => {
           {token ? (
             <>
               <Link to="/profile" className="btn me-2 border" style={{ color: 'var(--text-color)', borderColor: 'var(--pastel-pink)' }}>🔓 Profile</Link>
-              <button className="btn me-2 border" style={{ color: 'var(--text-color)', borderColor: 'var(--pastel-pink)' }}>🔒 Logout</button>
+              <button className="btn me-2 border" style={{ color: 'var(--text-color)', borderColor: 'var(--pastel-pink)' }} onClick={logout}>🔒 Logout</button>
             </>
           ) : (
             <>

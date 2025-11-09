@@ -7,13 +7,16 @@ import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import PizzasProvider from './context/PizzasContext.jsx';
 import CartProvider from './context/CartContext.jsx';
+import UserProvider from './context/UserContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <PizzasProvider>
         <CartProvider>
-          <App />
+          <UserProvider>
+            <App />
+          </UserProvider>
         </CartProvider>
       </PizzasProvider>
     </BrowserRouter>

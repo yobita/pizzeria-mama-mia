@@ -1,20 +1,28 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { PizzasContext } from '../context/PizzasContext';
 import { CartContext } from '../context/CartContext';
 
 const Pizza = () => {
     const { id } = useParams();
-    const { pizzas } = useContext(PizzasContext);
     const { addToCart } = useContext(CartContext);
     const [pizza, setPizza] = useState(null);
 
-    useEffect(() => {
-        if (pizzas.length > 0) {
-            const foundPizza = pizzas.find((p) => p.id === id);
-            setPizza(foundPizza);
+    const getPizza = async () => {
+        try {
+            const response = await fetch(`http://localhost:5000/api/pizzas/${id}`);
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            const data = await response.json();
+            setPizza(data);
+        } catch (error) {
+            console.error("Error fetching pizza:", error);
         }
-    }, [pizzas, id]);
+    };
+
+    useEffect(() => {
+        getPizza();
+    }, [id]);
 
     if (!pizza) {
         return <div>Loading...</div>;
