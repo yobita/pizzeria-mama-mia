@@ -1,0 +1,25 @@
+:root {
+  --cream-light: #f5f5dc;
+  --pastel-pink: #f8c8dc;
+  --cream-dark: #d2b48c; 
+  --text-color: #000000; 
+  --background-color: var(--cream-light);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+#root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+}

@@ -25,8 +25,8 @@ const handleSubmit = (e) => {
 };
 
 return (
-    <div className="container d-flex justify-content-center align-items-center vh-100">
-    <div className="card p-4 w-50">
+    <div className="container d-flex justify-content-center align-items-center vh-100" style={{ color: 'var(--text-color)' }}>
+    <div className="card p-4 w-50" style={{ backgroundColor: 'var(--cream-light)' }}>
         <h2 className="text-center mb-4">Iniciar Sesión</h2>
         <form onSubmit={handleSubmit}>
         <div className="form-group mb-3">
@@ -49,7 +49,7 @@ return (
             required
             />
         </div>
-        <button type="submit" className="btn btn-primary w-100">Iniciar Sesión</button>
+        <button type="submit" className="btn w-100" style={{ backgroundColor: 'var(--pastel-pink)', color: 'var(--text-color)' }}>Iniciar Sesión</button>
         </form>
         {error && <p className="text-danger mt-3">{error}</p>}
         {success && <p className="text-success mt-3">{success}</p>}
