@@ -1,17 +1,14 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import { CartContext } from '../context/CartContext';
-import { UserContext } from '../context/UserContext';
 
 const Navbar = () => {
-  const { total } = useContext(CartContext);
-  const { token, logout } = useContext(UserContext);
+  const total = 0;
+  const token = false;
 
   return (
-    <nav className="navbar navbar-expand-lg" style={{ backgroundColor: 'var(--cream-dark)' }}>
-      <Link className="navbar-brand ms-3" to="/" style={{ color: 'var(--text-color)' }}>Pizzería Mamma Mía</Link>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a className="navbar-brand ms-3">Pizzería Mamma Mía</a>
       
       <button 
         className="navbar-toggler me-2" 
@@ -21,30 +18,29 @@ const Navbar = () => {
         aria-controls="navbarContent" 
         aria-expanded="false" 
         aria-label="Toggle navigation"
-        style={{ borderColor: 'var(--pastel-pink)' }}
       >
         <span className="navbar-toggler-icon"></span>
       </button>
 
       <div className="collapse navbar-collapse" id="navbarContent">
         <div className="d-flex flex-column flex-lg-row">
-          <Link to="/" className="btn me-2 border" style={{ color: 'var(--text-color)', borderColor: 'var(--pastel-pink)' }}>🍕 Home</Link>
+          <button className="btn btn-dark me-2 border border-warning">🍕 Home</button>
           {token ? (
             <>
-              <Link to="/profile" className="btn me-2 border" style={{ color: 'var(--text-color)', borderColor: 'var(--pastel-pink)' }}>🔓 Profile</Link>
-              <button className="btn me-2 border" style={{ color: 'var(--text-color)', borderColor: 'var(--pastel-pink)' }} onClick={logout}>🔒 Logout</button>
+              <button className="btn btn-dark me-2 border border-warning">🔓 Profile</button>
+              <button className="btn btn-dark me-2 border border-warning">🔒 Logout</button>
             </>
           ) : (
             <>
-              <Link to="/login" className="btn me-2 border" style={{ color: 'var(--text-color)', borderColor: 'var(--pastel-pink)' }}>🔐 Login</Link>
-              <Link to="/register" className="btn me-2 border" style={{ color: 'var(--text-color)', borderColor: 'var(--pastel-pink)' }}>🔐 Register</Link>
+              <button className="btn btn-dark me-2 border border-warning">🔐 Login</button>
+              <button className="btn btn-dark me-2 border border-warning">🔐 Register</button>
             </>
           )}
         </div>
         <div className="ms-auto mt-2 mt-lg-0">
-          <Link to="/cart" className="btn border me-3" style={{ color: 'var(--text-color)', borderColor: 'var(--pastel-pink)' }}>
+          <button className="btn btn-dark border border-warning me-3">
             🛒 Total: ${total.toLocaleString()}
-          </Link>
+          </button>
         </div>
       </div>
     </nav>

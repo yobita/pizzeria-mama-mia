@@ -1,42 +1,41 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import { useContext } from "react";
-import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import Pizza from "./pages/Pizza";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
-import Cart from "./pages/Cart";
-import Profile from "./pages/Profile";
-import NotFound from "./pages/NotFound";
-import { UserContext } from "./context/UserContext";
-
-const ProtectedRoute = ({ children }) => {
-    const { token } = useContext(UserContext);
-    return token ? children : <Navigate to="/login" />;
-};
-
-const RedirectIfAuth = ({ children }) => {
-    const { token } = useContext(UserContext);
-    return !token ? children : <Navigate to="/" />;
-};
+import React, { useState } from 'react';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Cart from './components/Cart';
+import Home from './components/Home';
+// import Register from './components/Register'; //
+// import Login from './components/Login'; //
 
 const App = () => {
+    const [cart, setCart] = useState([]);
+
+    const addToCart = (pizza) => {
+        const existingPizza = cart.find(item => item.id === pizza.id);
+
+        if (existingPizza) {
+            setCart(cart.map(item =>
+                item.id === pizza.id
+                    ? { ...item, quantity: item.quantity + 1 }
+                    : item
+            ));
+        } else {
+            setCart([...cart, { ...pizza, quantity: 1 }]);
+        }
+    };
+
     return (
-        <div className="main-content">
+        <div>
             <Navbar />
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/register" element={<RedirectIfAuth><Register /></RedirectIfAuth>} />
-                <Route path="/login" element={<RedirectIfAuth><Login /></RedirectIfAuth>} />
-                <Route path="/cart" element={<Cart />} />
-                <Route path="/pizza/:id" element={<Pizza />} />
-                <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-                <Route path="*" element={<NotFound />} />
-            </Routes>
+            <Home addToCart={addToCart} />
+            {/* 
+            <Register />
+            <Login /> 
+            */}
+            <Cart cart={cart} setCart={setCart} />
             <Footer />
         </div>
     );
 };
 
 export default App;
+
